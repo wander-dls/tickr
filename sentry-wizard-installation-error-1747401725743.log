@@ -1,0 +1,11 @@
+npm error code EACCES
+npm error syscall open
+npm error path /Users/wanderd/.npm/_cacache/index-v5/16/bf/0e9fb60248f2ba9f29182d92de7dfc60b171b7991f2256c3a23e8dbf53e3
+npm error errno EACCES
+npm error
+npm error Your cache folder contains root-owned files, due to a bug in
+npm error previous versions of npm which has since been addressed.
+npm error
+npm error To permanently fix this problem, please run:
+npm error   sudo chown -R 501:20 "/Users/wanderd/.npm"
+npm error A complete log of this run can be found in: /Users/wanderd/.npm/_logs/2025-05-16T13_21_57_194Z-debug-0.log
