@@ -127,6 +127,16 @@ exports.Prisma.TicketScalarFieldEnum = {
   priority: 'priority',
   status: 'status',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  password: 'password',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
@@ -142,7 +152,8 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  Ticket: 'Ticket'
+  Ticket: 'Ticket',
+  User: 'User'
 };
 
 /**
