@@ -3,7 +3,8 @@
 import { prisma } from "@/db/prisma"
 import bcrypt from "bcryptjs"
 import { logEvent } from "@/utils/sentry"
-import { signAuthToken, setAuthCookie } from "@/lib/auth"
+import { signAuthToken, setAuthCookie, deleteAuthCookie  } from "@/lib/auth"
+
 
 type ResponseResult = {
     success: boolean;
@@ -62,9 +63,9 @@ export async function logoutUser(): Promise<{
     message: string;
   }> {
     try {
-    //   await removeAuthCookie();
-  
-      logEvent('User logged out successfully', 'auth', {}, 'info');
+        // Delete the auth cookie
+        await deleteAuthCookie();
+        logEvent('User logged out successfully', 'auth', {}, 'info');
   
       return { success: true, message: 'Logout Successful' };
     } catch (error) {
@@ -74,3 +75,37 @@ export async function logoutUser(): Promise<{
     }
   }
   
+// Login User
+export async function loginUser(preState: ResponseResult, formData: FormData): Promise<ResponseResult> {
+    try {
+        const email = formData.get("email") as string
+        const password = formData.get("password") as string
+        if (!email || !password) {
+            logEvent("Validation Error: Missing fields", "auth", { email, password }, "warning")
+            return { success: false, message: "All fields are required" }
+        }
+
+        const user = await prisma.user.findUnique({
+            where: { email },
+        })
+
+        if (!user || !user.password) {
+            logEvent(`Login failed: User not found - ${email}`, "auth", { email }, "warning")
+            return { success: false, message: "Invalid email or password" }
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password)
+        if (!isPasswordValid) {
+            logEvent(`Login failed: Invalid password`, "auth", { email }, "warning")
+            return { success: false, message: "Invalid email or password" }
+        }
+
+        // Create the auth token
+        const token = await signAuthToken({ userId: user.id })
+        await setAuthCookie(token)
+        return { success: true, message: "Login successful" }
+    } catch (error) {
+        logEvent("Error logging in user", "auth", {}, "error", error)
+        return { success: false, message: "Error logging in user" }
+    }
+}

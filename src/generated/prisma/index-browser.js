@@ -20,11 +20,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.1
+ * Prisma Client JS version: 6.8.2
  * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.8.1",
+  client: "6.8.2",
   engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
@@ -120,6 +120,15 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  password: 'password',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.TicketScalarFieldEnum = {
   id: 'id',
   subject: 'subject',
@@ -129,15 +138,6 @@ exports.Prisma.TicketScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId'
-};
-
-exports.Prisma.UserScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  password: 'password',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -152,8 +152,8 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  Ticket: 'Ticket',
-  User: 'User'
+  User: 'User',
+  Ticket: 'Ticket'
 };
 
 /**
