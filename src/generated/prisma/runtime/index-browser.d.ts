@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 declare class AnyNull extends NullTypesEnumValue {
     #private;
 }

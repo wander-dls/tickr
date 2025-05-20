@@ -10,7 +10,8 @@ const {
   makeStrictEnum,
   Public,
   getRuntime,
-} = './runtime/index-browser.js'
+  skip
+} = require('./runtime/index-browser.js')
 
 
 const Prisma = {}
@@ -161,7 +162,6 @@ exports.Prisma.ModelName = {
 class PrismaClient {
   constructor() {
     return new Proxy(this, {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       get(target, prop) {
         let message
         const runtime = getRuntime()
